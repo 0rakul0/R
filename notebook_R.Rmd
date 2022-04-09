@@ -1,0 +1,33 @@
+library(nycflights13)
+library(tidyverse)
+
+library(ggplot2)
+
+(num <- rnorm(1000, mean=10, sd=5))
+hist(num)
+
+------- lendo uma documento -----------
+
+library(readr)
+
+dados <- read_csv("C:\\Users\\jeffe\\Desktop\\git\\R\\data\\vendas.csv", n_max = 10)
+
+print(dados)
+
+------- lib dplyr (util para testes) --------
+
+library(dplyr)
+glimpse(dados)
+barplot(table(dados$promocao))
+
+------- salvando dados ----------
+# por virgula
+write_csv(dados, "C:\\Users\\jeffe\\Desktop\\git\\R\\data\\vendas_virgula.csv")
+write_csv2(dados, "C:\\Users\\jeffe\\Desktop\\git\\R\\data\\vendas_ponto_virgula.csv")
+
+------- xlsx pegando dados do excel -----------
+
+library(readxl)
+
+tabela <- read_excel("C:\\Users\\jeffe\\Desktop\\git\\R\\data\\vendas.xlsx")
+print(tabela)
