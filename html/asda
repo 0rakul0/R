@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <script type="application/shiny-singletons">d560c63add440bbd713859cc365d73efdb52cbef,ba7e7e9ff52a92179b9d584f049f335f70f4e657</script>
+  <script type="application/html-dependencies">jquery[3.6.0];shiny-css[1.7.1];shiny-javascript[1.7.1];esquisse[1.1.1];clipboard[2.0.6];phosphor-icons[1.4.1];shinyWidgets[0.7.0];pretty[3.0.3];popper[1.16.0];tippy[5.1.2];sw-dropdown[0.7.0];ionrangeslider-javascript[2.3.1];strftime[0.9.2];ionrangeslider-css[2.3.1];selectize[0.12.4];pickr[1.6.0];bootstrap-select[1.13.8];bootstrap[3.4.1]</script>
+<script src="shared/jquery.min.js"></script>
+<link href="shared/shiny.min.css" rel="stylesheet" />
+<script src="shared/shiny.min.js"></script>
+<link href="esquisse/esquisse/css/styles.css" rel="stylesheet" />
+<link href="esquisse/esquisse/css/annie-use-your-telescope.css" rel="stylesheet" />
+<script src="esquisse/esquisse/js/shiny-utils.js"></script>
+<script src="esquisse/clipboard/clipboard.min.js"></script>
+<link href="phosphor-icons-1.4.1/css/icons.min.css" rel="stylesheet" />
+<link href="shinyWidgets/shinyWidgets.min.css" rel="stylesheet" />
+<script src="shinyWidgets/shinyWidgets-bindings.min.js"></script>
+<link href="shinyWidgets/pretty-checkbox/pretty-checkbox.min.css" rel="stylesheet" />
+<script src="shinyWidgets/popper/popper.min.js"></script>
+<link href="shinyWidgets/tippy/dist/themes.min.css" rel="stylesheet" />
+<link href="shinyWidgets/tippy/dist/animations.min.css" rel="stylesheet" />
+<script src="shinyWidgets/tippy/dist/tippy-bundle.iife.min.js"></script>
+<link href="shinyWidgets/sw-dropdown/sw-dropdown.css" rel="stylesheet" />
+<script src="shinyWidgets/sw-dropdown/sw-dropdown.js"></script>
+<script src="shared/ionrangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="shared/strftime/strftime-min.js"></script>
+<link href="shared/ionrangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
+<link href="shared/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="shared/selectize/js/selectize.min.js"></script>
+<script src="shared/selectize/accessibility/js/selectize-plugin-a11y.min.js"></script>
+<link href="shinyWidgets/pickr-1.6.0/css/classic.min.css" rel="stylesheet" />
+<link href="shinyWidgets/pickr-1.6.0/css/monolith.min.css" rel="stylesheet" />
+<link href="shinyWidgets/pickr-1.6.0/css/nano.min.css" rel="stylesheet" />
+<script src="shinyWidgets/pickr-1.6.0/js/pickr.min.js"></script>
+<style>.pickr-color.disabled{cursor:not-allowed;}</style>
+<link href="shinyWidgets/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="shinyWidgets/bootstrap-select/js/bootstrap-select.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="shared/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="shared/bootstrap/accessibility/css/bootstrap-accessibility.min.css" rel="stylesheet" />
+<script src="shared/bootstrap/js/bootstrap.min.js"></script>
+<script src="shared/bootstrap/accessibility/js/bootstrap-accessibility.min.js"></script>  <style type="text/css">
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body { padding: 0px; margin: 0; }
+  </style>
+  <script src="esquisse/drop/dropInput-bindings.js"></script>
+</head>
+<body>
+  <div class="esquisse-container">
+    <div class="esquisse-title-container">
+      <h1 class="esquisse-title">Esquisse</h1>
+      <div class="pull-right">
+        <button class="btn btn-default action-button btn-sm" id="esquisse-settings" title="Visualizar configurações" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="2em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M128,74a54,54,0,1,0,54,54A54,54,0,0,0,128,74Zm0,96a42,42,0,1,1,42-42A42,42,0,0,1,128,170Zm107.5-65.3a6.2,6.2,0,0,0-2.9-4L208.2,87.2a77.4,77.4,0,0,0-4.8-8.3l.5-27.8a6.1,6.1,0,0,0-2-4.6,109.3,109.3,0,0,0-40.3-23.3,6.2,6.2,0,0,0-5,.6L132.8,38.1a76.9,76.9,0,0,0-9.6,0L99.3,23.8a6.1,6.1,0,0,0-4.9-.6A108.4,108.4,0,0,0,54.1,46.6a5.9,5.9,0,0,0-2,4.5l.5,27.8c-1.8,2.7-3.4,5.5-4.9,8.3L23.4,100.7a5.9,5.9,0,0,0-2.9,4,107.7,107.7,0,0,0,0,46.6,6.2,6.2,0,0,0,2.9,4l24.4,13.5a77.4,77.4,0,0,0,4.8,8.3l-.5,27.8a6.1,6.1,0,0,0,2,4.6,109.3,109.3,0,0,0,40.3,23.3,6.2,6.2,0,0,0,5-.6l23.8-14.3a76.9,76.9,0,0,0,9.6,0l23.9,14.3a5.6,5.6,0,0,0,3.1.9l1.8-.3a108.4,108.4,0,0,0,40.3-23.4,5.9,5.9,0,0,0,2-4.5l-.5-27.8c1.8-2.7,3.4-5.5,4.9-8.3l24.3-13.5a5.9,5.9,0,0,0,2.9-4A107.7,107.7,0,0,0,235.5,104.7Zm-11.2,41.4-23.5,13.1a5.7,5.7,0,0,0-2.5,2.6,91.2,91.2,0,0,1-5.8,10.1,6.6,6.6,0,0,0-1.1,3.5l.5,26.9a97.1,97.1,0,0,1-31.4,18.2l-23.1-13.9a6.5,6.5,0,0,0-3.1-.8h-.4a76.2,76.2,0,0,1-11.7,0,6.4,6.4,0,0,0-3.6.8L95.5,220.5a100.5,100.5,0,0,1-31.4-18.1l.5-26.9a6,6,0,0,0-1-3.5,73.2,73.2,0,0,1-5.9-10.2,5.7,5.7,0,0,0-2.5-2.6L31.7,146.1a95.8,95.8,0,0,1,0-36.2L55.2,96.8a5.7,5.7,0,0,0,2.5-2.6,91.2,91.2,0,0,1,5.8-10.1,5.8,5.8,0,0,0,1.1-3.5l-.5-26.9A98.1,98.1,0,0,1,95.5,35.5l23.1,13.9a6.2,6.2,0,0,0,3.5.8,76.2,76.2,0,0,1,11.7,0,6.4,6.4,0,0,0,3.6-.8l23.1-13.9a100.5,100.5,0,0,1,31.4,18.1l-.5,26.9a6.8,6.8,0,0,0,1,3.5,73.2,73.2,0,0,1,5.9,10.2,5.7,5.7,0,0,0,2.5,2.6l23.5,13.1A95.8,95.8,0,0,1,224.3,146.1Z"></path>
+            <title>Visualizar configurações</title>
+          </svg>
+        </button>
+        <button class="btn btn-default action-button btn-sm" id="esquisse-close" title="Fechar a janela" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="2em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M204.2,195.8a5.9,5.9,0,1,1-8.4,8.4L128,136.5,60.2,204.2a5.9,5.9,0,0,1-8.4-8.4L119.5,128,51.8,60.2a5.9,5.9,0,0,1,8.4-8.4L128,119.5l67.8-67.7a5.9,5.9,0,0,1,8.4,8.4L136.5,128Z"></path>
+            <title>Fechar a janela</title>
+          </svg>
+        </button>
+      </div>
+      <div class="pull-left">
+        <button class="btn btn-default action-button btn-sm" id="esquisse-launch_import_data" title="Importar dados" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="2em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M128,26C75.3,26,34,49.7,34,80v96c0,30.3,41.3,54,94,54s94-23.7,94-54V80C222,49.7,180.7,26,128,26Zm0,12c44.4,0,82,19.2,82,42s-37.6,42-82,42S46,102.8,46,80,83.6,38,128,38Zm82,138c0,22.8-37.6,42-82,42s-82-19.2-82-42V154.8C62,171.2,92.4,182,128,182s66-10.8,82-27.2Zm0-48c0,22.8-37.6,42-82,42s-82-19.2-82-42V106.8C62,123.2,92.4,134,128,134s66-10.8,82-27.2Z"></path>
+            <title>Importar dados</title>
+          </svg>
+        </button>
+        <button class="btn btn-default action-button btn-sm" id="esquisse-show_data" title="Mostrar os dados" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="2em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M224,50H32a6,6,0,0,0-6,6V192a14,14,0,0,0,14,14H216a14,14,0,0,0,14-14V56A6,6,0,0,0,224,50ZM38,110H82v36H38Zm56,0H218v36H94ZM218,62V98H38V62ZM38,192V158H82v36H40A2,2,0,0,1,38,192Zm178,2H94V158H218v34A2,2,0,0,1,216,194Z"></path>
+            <title>Mostrar os dados</title>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="esquisse-geom-aes">
+      <div style="padding: 3px 3px 0 3px; height: 144px;">
+        <div class="drop-input dropdown" id="esquisse-geom">
+          <button class="btn btn-default drop-input-main dropdown-toggle" data-toggle="dropdown" data-value="auto" style="width: 90px; width: 100%;">
+            <img src="esquisse/geomIcon/gg-auto.png" width="56" height="56"/>
+            <br/>
+            Auto
+          </button>
+          <div class="dropdown-menu" style="padding: 5px; width: 290px;">
+            <button class="btn drop-input-button btn-link" data-value="auto" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-auto.png" width="56" height="56"/>
+              <br/>
+              Auto
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="line" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-line.png" width="56" height="56"/>
+              <br/>
+              Line
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="step" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-step.png" width="56" height="56"/>
+              <br/>
+              Step
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="area" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-area.png" width="56" height="56"/>
+              <br/>
+              Area
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="bar" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-bar.png" width="56" height="56"/>
+              <br/>
+              Bar
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="col" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-col.png" width="56" height="56"/>
+              <br/>
+              Col
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="histogram" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-histogram.png" width="56" height="56"/>
+              <br/>
+              Histogram
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="point" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-point.png" width="56" height="56"/>
+              <br/>
+              Point
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="jitter" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-jitter.png" width="56" height="56"/>
+              <br/>
+              Jitter
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="boxplot" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-boxplot.png" width="56" height="56"/>
+              <br/>
+              Boxplot
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="violin" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-violin.png" width="56" height="56"/>
+              <br/>
+              Violin
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="density" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-density.png" width="56" height="56"/>
+              <br/>
+              Density
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="tile" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-tile.png" width="56" height="56"/>
+              <br/>
+              Tile
+            </button>
+            <button class="btn drop-input-button btn-link" data-value="sf" style="width: 90px; text-decoration: none !important;">
+              <img src="esquisse/geomIcon/gg-sf.png" width="56" height="56"/>
+              <br/>
+              Sf
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="esquisse-ui_aesthetics" class="shiny-html-output"></div>
+    </div>
+    <div class="flexfill-container flexfill-container-column" style="overflow-y: auto; display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;width:100%;height:100%;">
+      <div class="flexfill-item" style="position:relative;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;">
+        <div class="flexfill-item-inner" style="position:absolute;top:0;left:0;right:0;bottom:0;">
+          <div style="height: 100%; min-height: 400px;">
+            <div style="position: absolute; right: 40px; top: 5px; font-weight: bold; z-index: 1000;">
+              <div class="form-group shiny-input-container shiny-input-container-inline" style="display: inline-block; margin-right: -5px;">
+                <div class="pretty p-toggle p-plain p-bigger p-icon">
+                  <input id="esquisse-play_plot" type="checkbox" checked="checked"/>
+                  <div class="state p-on p-success-o">
+                    <i class="icon ph-play-circle-light ph-lg"></i>
+                    <label>
+                      <span>Play</span>
+                    </label>
+                  </div>
+                  <div class="state p-off p-danger-o">
+                    <i class="icon ph-pause-circle-light ph-lg"></i>
+                    <label>
+                      <span>Pause</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ggplot-container" style="position:relative;width:100%;height:100%;">
+              <div class="drop-menu-input" id="esquisse-plooooooot-exports_dropmenu" data-target="esquisse-plooooooot-exports" data-template="esquisse-plooooooot-exports-template">
+                <button class="btn btn-default action-button btn-sm" id="esquisse-plooooooot-exports" style="position:absolute;top:0;right:5px;z-index:30;" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                    <path d="M81.8,114.3a5.9,5.9,0,0,1,0-8.5,5.8,5.8,0,0,1,8.4,0L122,137.5V40a6,6,0,0,1,12,0v97.5l31.8-31.7a5.8,5.8,0,0,1,8.4,0,5.9,5.9,0,0,1,0,8.5l-42,41.9a5.8,5.8,0,0,1-8.4,0ZM216,146a6,6,0,0,0-6,6v56a2,2,0,0,1-2,2H48a2,2,0,0,1-2-2V152a6,6,0,0,0-12,0v56a14,14,0,0,0,14,14H208a14,14,0,0,0,14-14V152A6,6,0,0,0,216,146Z"></path>
+                    <title>download-simple-light</title>
+                  </svg>
+                </button>
+                <div id="esquisse-plooooooot-exports-template" style="display: none; padding: 5px;">
+                  <a id="esquisse-plooooooot-export_png" class="shiny-download-link" href="" target="_blank" download>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M216,42H40A14,14,0,0,0,26,56V168h0v32a14,14,0,0,0,14,14H216a14,14,0,0,0,14-14V56A14,14,0,0,0,216,42ZM40,54H216a2,2,0,0,1,2,2V169.5l-32.1-32.1a14.1,14.1,0,0,0-19.8,0l-20.7,20.7a1.9,1.9,0,0,1-2.8,0L97.9,113.4a14.1,14.1,0,0,0-19.8,0L38,153.5V56A2,2,0,0,1,40,54ZM216,202H40a2,2,0,0,1-2-2V170.5l48.6-48.6a1.9,1.9,0,0,1,2.8,0l44.7,44.7a14.1,14.1,0,0,0,19.8,0l20.7-20.7a1.9,1.9,0,0,1,2.8,0L218,186.5V200A2,2,0,0,1,216,202Zm-67.1-94.9A9.9,9.9,0,0,1,146,100a10,10,0,0,1,20,0h0a10,10,0,0,1-10,10A9.9,9.9,0,0,1,148.9,107.1Z"></path>
+                      <title>image-light</title>
+                    </svg>
+                    PNG
+                  </a>
+                  <br/>
+                  <a id="esquisse-plooooooot-export_pdf" class="shiny-download-link" href="" target="_blank" download>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M48,134a6,6,0,0,0,6-6V40a2,2,0,0,1,2-2h90V88a6,6,0,0,0,6,6h50v34a6,6,0,0,0,12,0V88a6,6,0,0,0-1.8-4.3l-56-55.9A5.6,5.6,0,0,0,152,26H56A14,14,0,0,0,42,40v88A6,6,0,0,0,48,134ZM158,46.5,193.5,82H158ZM64,162H48a6,6,0,0,0-6,6v48a6,6,0,0,0,12,0V206H64a22,22,0,0,0,0-44Zm0,32H54V174H64a10,10,0,0,1,0,20Zm130-20v16h18a6,6,0,0,1,0,12H194v14a6,6,0,0,1-12,0V168a6,6,0,0,1,6-6h28a6,6,0,0,1,0,12Zm-66-12H114a6,6,0,0,0-6,6v48a6,6,0,0,0,6,6h14a30,30,0,0,0,0-60Zm0,48h-8V174h8a18,18,0,0,1,0,36Z"></path>
+                      <title>file-pdf-light</title>
+                    </svg>
+                    PDF
+                  </a>
+                  <br/>
+                  <a id="esquisse-plooooooot-export_svg" class="shiny-download-link" href="" target="_blank" download>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M216,42H72A14,14,0,0,0,58,56V74H40A14,14,0,0,0,26,88V200a14,14,0,0,0,14,14H184a14,14,0,0,0,14-14V182h18a14,14,0,0,0,14-14V56A14,14,0,0,0,216,42ZM40,86H184a2,2,0,0,1,2,2v18H38V88A2,2,0,0,1,40,86ZM186,200a2,2,0,0,1-2,2H40a2,2,0,0,1-2-2V118H186Zm32-32a2,2,0,0,1-2,2H198V88a14,14,0,0,0-14-14H70V56a2,2,0,0,1,2-2H216a2,2,0,0,1,2,2Z"></path>
+                      <title>browsers-light</title>
+                    </svg>
+                    SVG
+                  </a>
+                  <br/>
+                  <a id="esquisse-plooooooot-export_jpeg" class="shiny-download-link" href="" target="_blank" download>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M216,42H40A14,14,0,0,0,26,56V168h0v32a14,14,0,0,0,14,14H216a14,14,0,0,0,14-14V56A14,14,0,0,0,216,42ZM40,54H216a2,2,0,0,1,2,2V169.5l-32.1-32.1a14.1,14.1,0,0,0-19.8,0l-20.7,20.7a1.9,1.9,0,0,1-2.8,0L97.9,113.4a14.1,14.1,0,0,0-19.8,0L38,153.5V56A2,2,0,0,1,40,54ZM216,202H40a2,2,0,0,1-2-2V170.5l48.6-48.6a1.9,1.9,0,0,1,2.8,0l44.7,44.7a14.1,14.1,0,0,0,19.8,0l20.7-20.7a1.9,1.9,0,0,1,2.8,0L218,186.5V200A2,2,0,0,1,216,202Zm-67.1-94.9A9.9,9.9,0,0,1,146,100a10,10,0,0,1,20,0h0a10,10,0,0,1-10,10A9.9,9.9,0,0,1,148.9,107.1Z"></path>
+                      <title>image-light</title>
+                    </svg>
+                    JPEG
+                  </a>
+                  <br/>
+                  <a id="esquisse-plooooooot-export_pptx" class="shiny-download-link" href="" target="_blank" download>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M216,78a14,14,0,0,0,14-14V48a14,14,0,0,0-14-14H40A14,14,0,0,0,26,48V64A14,14,0,0,0,40,78h2V178H32a6,6,0,0,0,0,12h90v20.8a22,22,0,1,0,12,0V190h90a6,6,0,0,0,0-12H214V78ZM138,232a10,10,0,1,1-10-10A10,10,0,0,1,138,232ZM38,64V48a2,2,0,0,1,2-2H216a2,2,0,0,1,2,2V64a2,2,0,0,1-2,2H40A2,2,0,0,1,38,64ZM202,178H54V78H202Z"></path>
+                      <title>projector-screen-light</title>
+                    </svg>
+                    PPTX
+                  </a>
+                  <br/>
+                  <hr style="margin: 5px 0;"/>
+                  <a id="esquisse-plooooooot-more" href="#" class="action-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M128,74a54,54,0,1,0,54,54A54,54,0,0,0,128,74Zm0,96a42,42,0,1,1,42-42A42,42,0,0,1,128,170Zm105.2-18.4-15.3-20.4c.1-2.2,0-4.7,0-6.4l15.3-20.4a6,6,0,0,0,1-5.2,109.1,109.1,0,0,0-10.8-25.9,6.1,6.1,0,0,0-4.3-3l-25.2-3.6c-1.5-1.6-3-3.1-4.6-4.6l-3.6-25.2a6,6,0,0,0-2.9-4.3,113.4,113.4,0,0,0-26-10.8,6,6,0,0,0-5.2,1L131.3,38.1q-3.3-.1-6.6,0L104.4,22.8a6,6,0,0,0-5.2-1A109.1,109.1,0,0,0,73.3,32.6a6.1,6.1,0,0,0-3,4.3L66.7,62.1c-1.6,1.5-3.1,3-4.6,4.6L36.9,70.3a6,6,0,0,0-4.3,2.9,113.4,113.4,0,0,0-10.8,26,6,6,0,0,0,1,5.2l15.3,20.4c-.1,2.2,0,4.7,0,6.4L22.8,151.6a6,6,0,0,0-1,5.2,109.1,109.1,0,0,0,10.8,25.9,5.8,5.8,0,0,0,4.3,3l25.2,3.6,4.6,4.6,3.6,25.2a6.1,6.1,0,0,0,3,4.3,110.9,110.9,0,0,0,25.9,10.8l1.6.2a6,6,0,0,0,3.6-1.2l20.3-15.3h6.6l20.3,15.3a6,6,0,0,0,5.2,1,111.6,111.6,0,0,0,26-10.8,6,6,0,0,0,2.9-4.3l3.6-25.2c1.6-1.5,3.3-3.3,4.5-4.6l25.3-3.6a6,6,0,0,0,4.3-2.9,113.4,113.4,0,0,0,10.8-26A6,6,0,0,0,233.2,151.6Zm-18.8,22.6-24.3,3.5a6.9,6.9,0,0,0-3.6,1.8c-1.2,1.4-4.9,5.2-6.8,6.9a6.2,6.2,0,0,0-2,3.7l-3.5,24.3a92.8,92.8,0,0,1-17.8,7.4L136.7,207a6,6,0,0,0-3.9-1.1h-9.6a6,6,0,0,0-3.9,1.1L99.6,221.8a86.8,86.8,0,0,1-17.8-7.4l-3.5-24.3a6.2,6.2,0,0,0-2-3.7,70.6,70.6,0,0,1-6.7-6.7,6.2,6.2,0,0,0-3.7-2l-24.3-3.5a92.8,92.8,0,0,1-7.4-17.8L49,136.7a6.4,6.4,0,0,0,1.2-3.8c-.1-1.8-.2-7.1-.1-9.7a6,6,0,0,0-1.1-3.9L34.2,99.6a86.8,86.8,0,0,1,7.4-17.8l24.3-3.5a6.2,6.2,0,0,0,3.7-2,70.6,70.6,0,0,1,6.7-6.7,6.2,6.2,0,0,0,2-3.7l3.5-24.3a92.8,92.8,0,0,1,17.8-7.4L119.3,49a6,6,0,0,0,3.9,1.1q4.8-.1,9.6,0a6,6,0,0,0,3.9-1.1l19.7-14.8a86.8,86.8,0,0,1,17.8,7.4l3.5,24.3a6.2,6.2,0,0,0,2,3.7,70.6,70.6,0,0,1,6.7,6.7,6.2,6.2,0,0,0,3.7,2l24.3,3.5a92.8,92.8,0,0,1,7.4,17.8L207,119.3a6.4,6.4,0,0,0-1.2,3.8c.1,1.8.2,7.1.1,9.7a6,6,0,0,0,1.1,3.9l14.8,19.7A86.8,86.8,0,0,1,214.4,174.2Z"></path>
+                      <title>gear-light</title>
+                    </svg>
+                    Mais opções
+                  </a>
+                </div>
+                <script type="application/json" data-for="esquisse-plooooooot-exports_dropmenu">{"options":{"arrow":true,"theme":"light","trigger":"click","placement":"bottom-end","maxWidth":"none","hideOnClick":true,"flip":false}}</script>
+              </div>
+              <div id="esquisse-plooooooot-plot" class="shiny-plot-output" style="width:100%;height:100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group-esquisse btn-group-justified-esquisse">
+      <div class="sw-dropdown btn-group-esquisse" id="sw-drop-esquisse-controls-controls-labs">
+        <button class="btn btn-default btn-esquisse-controls " type="button" id="esquisse-controls-controls-labs">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M136.1,149.1h0L85.3,53.2a6,6,0,0,0-10.6,0L23.9,149.1h0L2.7,189.2a6,6,0,1,0,10.6,5.6L32.8,158h94.4l19.5,36.8A6.1,6.1,0,0,0,152,198a5.5,5.5,0,0,0,2.8-.7,6,6,0,0,0,2.5-8.1Zm-97-3.1L80,68.8,120.9,146ZM208,96.9a40.2,40.2,0,0,0-28.2,11.2,6,6,0,0,0-.1,8.5,5.9,5.9,0,0,0,8.5,0,28.3,28.3,0,0,1,19.8-7.7c14.3,0,26,9.9,26,22v11.2a40.3,40.3,0,0,0-26-9.2c-21,0-38,15.3-38,34s17,34,38,34a40.3,40.3,0,0,0,26-9.2v.3a6,6,0,0,0,12,0V130.9C246,112.2,229,96.9,208,96.9Zm0,92c-14.3,0-26-9.9-26-22s11.7-22,26-22,26,9.9,26,22S222.3,188.9,208,188.9Z"></path>
+            <title>text-aa-light</title>
+          </svg>
+          Título &amp; legendas
+          <span class="glyphicon glyphicon-triangle-top"></span>
+        </button>
+        <div class="sw-dropdown-content animated sw-dropup-content esquisse-controls-labs" id="sw-content-esquisse-controls-controls-labs">
+          <div class="sw-dropdown-in">
+            <div class="form-group">
+              <div class="esquisse-labs-options">
+                <div class="form-group shiny-input-container" style="width: 100%;">
+                  <label class="control-label" id="esquisse-controls-labs_title-label" for="esquisse-controls-labs_title">Título:</label>
+                  <input id="esquisse-controls-labs_title" type="text" class="form-control" value="" placeholder="Título" style="border-radius: 4px 0 0 4px;"/>
+                </div>
+                <div class="drop-menu-input" id="esquisse-controls-labs_title_options_dropmenu" data-target="esquisse-controls-labs_title_options" data-template="esquisse-controls-labs_title_options-template">
+                  <button id="esquisse-controls-labs_title_options" type="button" class="btn btn-default action-button" style="margin-top: 25px; border-radius: 0 4px 4px 0; width: 100%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z"></path>
+                      <title>plus-light</title>
+                    </svg>
+                  </button>
+                  <div id="esquisse-controls-labs_title_options-template" style="display: none; padding: 5px; width: 320px;">
+                    <div id="esquisse-controls-labs_title_face" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_title_face">Tipo da fonte:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_title_face" value="plain" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Plain</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_title_face" value="italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_title_face" value="bold"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_title_face" value="bold.italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold/Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group shiny-input-container">
+                      <label class="control-label" id="esquisse-controls-labs_title_size-label" for="esquisse-controls-labs_title_size">Tamanho da fonte:</label>
+                      <input id="esquisse-controls-labs_title_size" type="number" class="form-control" value="13"/>
+                    </div>
+                    <div id="esquisse-controls-labs_title_align" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_title_align">Alinhamento:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_title_align" value="left" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Esquerda</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_title_align" value="center"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Centro</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_title_align" value="right"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Direita</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="application/json" data-for="esquisse-controls-labs_title_options_dropmenu">{"options":{"arrow":true,"theme":"light","trigger":"click","placement":"right","maxWidth":"none","hideOnClick":true,"flip":false}}</script>
+                </div>
+              </div>
+              <div class="esquisse-labs-options">
+                <div class="form-group shiny-input-container" style="width: 100%;">
+                  <label class="control-label" id="esquisse-controls-labs_subtitle-label" for="esquisse-controls-labs_subtitle">Subtítulo:</label>
+                  <input id="esquisse-controls-labs_subtitle" type="text" class="form-control" value="" placeholder="Subtítulo" style="border-radius: 4px 0 0 4px;"/>
+                </div>
+                <div class="drop-menu-input" id="esquisse-controls-labs_subtitle_options_dropmenu" data-target="esquisse-controls-labs_subtitle_options" data-template="esquisse-controls-labs_subtitle_options-template">
+                  <button id="esquisse-controls-labs_subtitle_options" type="button" class="btn btn-default action-button" style="margin-top: 25px; border-radius: 0 4px 4px 0; width: 100%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z"></path>
+                      <title>plus-light</title>
+                    </svg>
+                  </button>
+                  <div id="esquisse-controls-labs_subtitle_options-template" style="display: none; padding: 5px; width: 320px;">
+                    <div id="esquisse-controls-labs_subtitle_face" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_subtitle_face">Tipo da fonte:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_subtitle_face" value="plain" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Plain</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_subtitle_face" value="italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_subtitle_face" value="bold"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_subtitle_face" value="bold.italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold/Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group shiny-input-container">
+                      <label class="control-label" id="esquisse-controls-labs_subtitle_size-label" for="esquisse-controls-labs_subtitle_size">Tamanho da fonte:</label>
+                      <input id="esquisse-controls-labs_subtitle_size" type="number" class="form-control" value="11"/>
+                    </div>
+                    <div id="esquisse-controls-labs_subtitle_align" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_subtitle_align">Alinhamento:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_subtitle_align" value="left" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Esquerda</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_subtitle_align" value="center"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Centro</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_subtitle_align" value="right"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Direita</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="application/json" data-for="esquisse-controls-labs_subtitle_options_dropmenu">{"options":{"arrow":true,"theme":"light","trigger":"click","placement":"right","maxWidth":"none","hideOnClick":true,"flip":false}}</script>
+                </div>
+              </div>
+              <div class="esquisse-labs-options">
+                <div class="form-group shiny-input-container" style="width: 100%;">
+                  <label class="control-label" id="esquisse-controls-labs_caption-label" for="esquisse-controls-labs_caption">Legenda:</label>
+                  <input id="esquisse-controls-labs_caption" type="text" class="form-control" value="" placeholder="Legenda" style="border-radius: 4px 0 0 4px;"/>
+                </div>
+                <div class="drop-menu-input" id="esquisse-controls-labs_caption_options_dropmenu" data-target="esquisse-controls-labs_caption_options" data-template="esquisse-controls-labs_caption_options-template">
+                  <button id="esquisse-controls-labs_caption_options" type="button" class="btn btn-default action-button" style="margin-top: 25px; border-radius: 0 4px 4px 0; width: 100%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z"></path>
+                      <title>plus-light</title>
+                    </svg>
+                  </button>
+                  <div id="esquisse-controls-labs_caption_options-template" style="display: none; padding: 5px; width: 320px;">
+                    <div id="esquisse-controls-labs_caption_face" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_caption_face">Tipo da fonte:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_caption_face" value="plain" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Plain</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_caption_face" value="italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_caption_face" value="bold"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_caption_face" value="bold.italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold/Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group shiny-input-container">
+                      <label class="control-label" id="esquisse-controls-labs_caption_size-label" for="esquisse-controls-labs_caption_size">Tamanho da fonte:</label>
+                      <input id="esquisse-controls-labs_caption_size" type="number" class="form-control" value="9"/>
+                    </div>
+                    <div id="esquisse-controls-labs_caption_align" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_caption_align">Alinhamento:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_caption_align" value="left"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Esquerda</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_caption_align" value="center"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Centro</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_caption_align" value="right" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Direita</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="application/json" data-for="esquisse-controls-labs_caption_options_dropmenu">{"options":{"arrow":true,"theme":"light","trigger":"click","placement":"right","maxWidth":"none","hideOnClick":true,"flip":false}}</script>
+                </div>
+              </div>
+              <div class="esquisse-labs-options">
+                <div class="form-group shiny-input-container" style="width: 100%;">
+                  <label class="control-label" id="esquisse-controls-labs_x-label" for="esquisse-controls-labs_x">Título do eixo X:</label>
+                  <input id="esquisse-controls-labs_x" type="text" class="form-control" value="" placeholder="Título do eixo X" style="border-radius: 4px 0 0 4px;"/>
+                </div>
+                <div class="drop-menu-input" id="esquisse-controls-labs_x_options_dropmenu" data-target="esquisse-controls-labs_x_options" data-template="esquisse-controls-labs_x_options-template">
+                  <button id="esquisse-controls-labs_x_options" type="button" class="btn btn-default action-button" style="margin-top: 25px; border-radius: 0 4px 4px 0; width: 100%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z"></path>
+                      <title>plus-light</title>
+                    </svg>
+                  </button>
+                  <div id="esquisse-controls-labs_x_options-template" style="display: none; padding: 5px; width: 320px;">
+                    <div id="esquisse-controls-labs_x_face" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_x_face">Tipo da fonte:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_x_face" value="plain" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Plain</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_x_face" value="italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_x_face" value="bold"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_x_face" value="bold.italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold/Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group shiny-input-container">
+                      <label class="control-label" id="esquisse-controls-labs_x_size-label" for="esquisse-controls-labs_x_size">Tamanho da fonte:</label>
+                      <input id="esquisse-controls-labs_x_size" type="number" class="form-control" value="11"/>
+                    </div>
+                    <div id="esquisse-controls-labs_x_align" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_x_align">Alinhamento:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_x_align" value="left"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Esquerda</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_x_align" value="center" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Centro</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_x_align" value="right"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Direita</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="application/json" data-for="esquisse-controls-labs_x_options_dropmenu">{"options":{"arrow":true,"theme":"light","trigger":"click","placement":"right","maxWidth":"none","hideOnClick":true,"flip":false}}</script>
+                </div>
+              </div>
+              <div class="esquisse-labs-options">
+                <div class="form-group shiny-input-container" style="width: 100%;">
+                  <label class="control-label" id="esquisse-controls-labs_y-label" for="esquisse-controls-labs_y">Título do eixo Y:</label>
+                  <input id="esquisse-controls-labs_y" type="text" class="form-control" value="" placeholder="Título do eixo Y" style="border-radius: 4px 0 0 4px;"/>
+                </div>
+                <div class="drop-menu-input" id="esquisse-controls-labs_y_options_dropmenu" data-target="esquisse-controls-labs_y_options" data-template="esquisse-controls-labs_y_options-template">
+                  <button id="esquisse-controls-labs_y_options" type="button" class="btn btn-default action-button" style="margin-top: 25px; border-radius: 0 4px 4px 0; width: 100%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                      <path d="M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z"></path>
+                      <title>plus-light</title>
+                    </svg>
+                  </button>
+                  <div id="esquisse-controls-labs_y_options-template" style="display: none; padding: 5px; width: 320px;">
+                    <div id="esquisse-controls-labs_y_face" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_y_face">Tipo da fonte:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_y_face" value="plain" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Plain</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_y_face" value="italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_y_face" value="bold"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_y_face" value="bold.italic"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Bold/Italic</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group shiny-input-container">
+                      <label class="control-label" id="esquisse-controls-labs_y_size-label" for="esquisse-controls-labs_y_size">Tamanho da fonte:</label>
+                      <input id="esquisse-controls-labs_y_size" type="number" class="form-control" value="11"/>
+                    </div>
+                    <div id="esquisse-controls-labs_y_align" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                      <label class="control-label" for="esquisse-controls-labs_y_align">Alinhamento:</label>
+                      <div class="shiny-options-group">
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_y_align" value="left"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Esquerda</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_y_align" value="center" checked="checked"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Centro</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pretty p-default p-round">
+                          <input type="radio" name="esquisse-controls-labs_y_align" value="right"/>
+                          <div class="state p-primary">
+                            <label>
+                              <span>Direita</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="application/json" data-for="esquisse-controls-labs_y_options_dropmenu">{"options":{"arrow":true,"theme":"light","trigger":"click","placement":"right","maxWidth":"none","hideOnClick":true,"flip":false}}</script>
+                </div>
+              </div>
+              <div id="esquisse-controls-controls-labs-fill" style="display: none;">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" id="esquisse-controls-labs_fill-label" for="esquisse-controls-labs_fill">Legenda do preenchimento:</label>
+                  <input id="esquisse-controls-labs_fill" type="text" class="form-control" value="" placeholder="Legenda do preenchimento"/>
+                </div>
+              </div>
+              <div id="esquisse-controls-controls-labs-color" style="display: none;">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" id="esquisse-controls-labs_color-label" for="esquisse-controls-labs_color">Legenda de cor:</label>
+                  <input id="esquisse-controls-labs_color" type="text" class="form-control" value="" placeholder="Legenda de cor"/>
+                </div>
+              </div>
+              <div id="esquisse-controls-controls-labs-size" style="display: none;">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" id="esquisse-controls-labs_size-label" for="esquisse-controls-labs_size">Legenda de tamanho:</label>
+                  <input id="esquisse-controls-labs_size" type="text" class="form-control" value="" placeholder="Legenda de tamanho"/>
+                </div>
+              </div>
+              <div id="esquisse-controls-controls-labs-shape" style="display: none;">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" id="esquisse-controls-labs_shape-label" for="esquisse-controls-labs_shape">Legenda da forma:</label>
+                  <input id="esquisse-controls-labs_shape" type="text" class="form-control" value="" placeholder="Legenda da forma"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>$(function() {swDrop('esquisse-controls-controls-labs', 'sw-content-esquisse-controls-controls-labs', 'sw-drop-esquisse-controls-controls-labs', 'sw-none', 'sw-none', '1');});</script>
+      </div>
+      <div class="sw-dropdown btn-group-esquisse" id="sw-drop-esquisse-controls-controls-parameters">
+        <button class="btn btn-default btn-esquisse-controls " type="button" id="esquisse-controls-controls-parameters">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M128,74a54,54,0,1,0,54,54A54,54,0,0,0,128,74Zm0,96a42,42,0,1,1,42-42A42,42,0,0,1,128,170Zm105.2-18.4-15.3-20.4c.1-2.2,0-4.7,0-6.4l15.3-20.4a6,6,0,0,0,1-5.2,109.1,109.1,0,0,0-10.8-25.9,6.1,6.1,0,0,0-4.3-3l-25.2-3.6c-1.5-1.6-3-3.1-4.6-4.6l-3.6-25.2a6,6,0,0,0-2.9-4.3,113.4,113.4,0,0,0-26-10.8,6,6,0,0,0-5.2,1L131.3,38.1q-3.3-.1-6.6,0L104.4,22.8a6,6,0,0,0-5.2-1A109.1,109.1,0,0,0,73.3,32.6a6.1,6.1,0,0,0-3,4.3L66.7,62.1c-1.6,1.5-3.1,3-4.6,4.6L36.9,70.3a6,6,0,0,0-4.3,2.9,113.4,113.4,0,0,0-10.8,26,6,6,0,0,0,1,5.2l15.3,20.4c-.1,2.2,0,4.7,0,6.4L22.8,151.6a6,6,0,0,0-1,5.2,109.1,109.1,0,0,0,10.8,25.9,5.8,5.8,0,0,0,4.3,3l25.2,3.6,4.6,4.6,3.6,25.2a6.1,6.1,0,0,0,3,4.3,110.9,110.9,0,0,0,25.9,10.8l1.6.2a6,6,0,0,0,3.6-1.2l20.3-15.3h6.6l20.3,15.3a6,6,0,0,0,5.2,1,111.6,111.6,0,0,0,26-10.8,6,6,0,0,0,2.9-4.3l3.6-25.2c1.6-1.5,3.3-3.3,4.5-4.6l25.3-3.6a6,6,0,0,0,4.3-2.9,113.4,113.4,0,0,0,10.8-26A6,6,0,0,0,233.2,151.6Zm-18.8,22.6-24.3,3.5a6.9,6.9,0,0,0-3.6,1.8c-1.2,1.4-4.9,5.2-6.8,6.9a6.2,6.2,0,0,0-2,3.7l-3.5,24.3a92.8,92.8,0,0,1-17.8,7.4L136.7,207a6,6,0,0,0-3.9-1.1h-9.6a6,6,0,0,0-3.9,1.1L99.6,221.8a86.8,86.8,0,0,1-17.8-7.4l-3.5-24.3a6.2,6.2,0,0,0-2-3.7,70.6,70.6,0,0,1-6.7-6.7,6.2,6.2,0,0,0-3.7-2l-24.3-3.5a92.8,92.8,0,0,1-7.4-17.8L49,136.7a6.4,6.4,0,0,0,1.2-3.8c-.1-1.8-.2-7.1-.1-9.7a6,6,0,0,0-1.1-3.9L34.2,99.6a86.8,86.8,0,0,1,7.4-17.8l24.3-3.5a6.2,6.2,0,0,0,3.7-2,70.6,70.6,0,0,1,6.7-6.7,6.2,6.2,0,0,0,2-3.7l3.5-24.3a92.8,92.8,0,0,1,17.8-7.4L119.3,49a6,6,0,0,0,3.9,1.1q4.8-.1,9.6,0a6,6,0,0,0,3.9-1.1l19.7-14.8a86.8,86.8,0,0,1,17.8,7.4l3.5,24.3a6.2,6.2,0,0,0,2,3.7,70.6,70.6,0,0,1,6.7,6.7,6.2,6.2,0,0,0,3.7,2l24.3,3.5a92.8,92.8,0,0,1,7.4,17.8L207,119.3a6.4,6.4,0,0,0-1.2,3.8c.1,1.8.2,7.1.1,9.7a6,6,0,0,0,1.1,3.9l14.8,19.7A86.8,86.8,0,0,1,214.4,174.2Z"></path>
+            <title>gear-light</title>
+          </svg>
+          Opções do gráfico
+          <span class="glyphicon glyphicon-triangle-top"></span>
+        </button>
+        <div class="sw-dropdown-content animated sw-dropup-content esquisse-controls-parameters" id="sw-content-esquisse-controls-controls-parameters">
+          <div class="sw-dropdown-in">
+            <div id="esquisse-controls-controls-scatter" style="display: none; padding-top: 10px;">
+              <label class="control-label" for="esquisse-controls-smooth_add">Adicionar linha de tendência:</label>
+              <div class="form-group shiny-input-container shiny-input-container-inline" style="display: inline-block; margin-right: 10px;">
+                <div class="pretty p-toggle p-default">
+                  <input id="esquisse-controls-smooth_add" type="checkbox"/>
+                  <div class="state p-on p-success">
+                    <label>
+                      <span>Sim</span>
+                    </label>
+                  </div>
+                  <div class="state p-off p-danger">
+                    <label>
+                      <span>Não</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div data-display-if="input.smooth_add==true" data-ns-prefix="esquisse-controls-">
+                <div class="form-group shiny-input-container" style="width:100%;">
+                  <label class="control-label" id="esquisse-controls-smooth_span-label" for="esquisse-controls-smooth_span">Quantidade de suavização da linha de tendência:</label>
+                  <input class="js-range-slider" id="esquisse-controls-smooth_span" data-skin="shiny" data-min="0.1" data-max="1" data-from="0.75" data-step="0.01" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+                </div>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-jitter" style="display: none; padding-top: 10px;">
+              <label class="control-label" for="esquisse-controls-jitter_add">Adicionar pontos (jitter):</label>
+              <div class="form-group shiny-input-container shiny-input-container-inline" style="display: inline-block; margin-right: 10px;">
+                <div class="pretty p-toggle p-default">
+                  <input id="esquisse-controls-jitter_add" type="checkbox"/>
+                  <div class="state p-on p-success">
+                    <label>
+                      <span>Sim</span>
+                    </label>
+                  </div>
+                  <div class="state p-off p-danger">
+                    <label>
+                      <span>Não</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-size" style="display: none;">
+              <div class="form-group shiny-input-container" style="width:100%;">
+                <label class="control-label" id="esquisse-controls-size-label" for="esquisse-controls-size">Tamanho dos pontos/linhas:</label>
+                <input class="js-range-slider" id="esquisse-controls-size" data-skin="shiny" data-min="0.5" data-max="4" data-from="1.2" data-step="0.05" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-facet" style="display: none;">
+              <div id="esquisse-controls-facet_scales" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                <label class="control-label" for="esquisse-controls-facet_scales">Escalas para faceta:</label>
+                <div class="shiny-options-group">
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-facet_scales" value="fixed" checked="checked"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>fixed</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-facet_scales" value="free"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>free</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-facet_scales" value="free_x"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>free_x</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-facet_scales" value="free_y"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>free_y</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group shiny-input-container">
+                <label class="control-label" id="esquisse-controls-facet_ncol-label" for="esquisse-controls-facet_ncol">Número de colunas para faceta:</label>
+                <input class="js-range-slider" id="esquisse-controls-facet_ncol" data-skin="shiny" data-min="0" data-max="10" data-from="0" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+              <div class="form-group shiny-input-container">
+                <label class="control-label" id="esquisse-controls-facet_nrow-label" for="esquisse-controls-facet_nrow">Número de linhas para faceta:</label>
+                <input class="js-range-slider" id="esquisse-controls-facet_nrow" data-skin="shiny" data-min="0" data-max="10" data-from="0" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-histogram" style="display: none;">
+              <div class="form-group shiny-input-container" style="width:100%;">
+                <label class="control-label" id="esquisse-controls-bins-label" for="esquisse-controls-bins">Número de bins:</label>
+                <input class="js-range-slider" id="esquisse-controls-bins" data-skin="shiny" data-min="10" data-max="100" data-from="30" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-violin" style="display: none;">
+              <div id="esquisse-controls-scale" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                <label class="control-label" for="esquisse-controls-scale">Escala:</label>
+                <div class="shiny-options-group">
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-scale" value="area" checked="checked"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>area</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-scale" value="count"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>count</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-scale" value="width"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>width</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-scale-trans-x" style="display: none;">
+              <div id="esquisse-controls-xlim" class="shiny-numeric-range-input form-group shiny-input-container">
+                <label class="control-label" for="esquisse-controls-xlim">Limite do eixo X (vazio para nenhum):</label>
+                <div class="input-numeric-range input-group">
+                  <input type="number" class="form-control" value="NA"/>
+                  <span class="input-group-addon input-group-text rounded-0"> to </span>
+                  <input type="number" class="form-control" value="NA"/>
+                </div>
+              </div>
+              <div class="form-group shiny-input-container" style="width:100%;">
+                <label class="control-label" id="esquisse-controls-transX-label" for="esquisse-controls-transX">Transformação do eixo X:</label>
+                <div>
+                  <select id="esquisse-controls-transX"><option value="asn">asn</option>
+<option value="atanh">atanh</option>
+<option value="boxcox">boxcox</option>
+<option value="exp">exp</option>
+<option value="identity" selected>identity</option>
+<option value="log">log</option>
+<option value="log10">log10</option>
+<option value="log1p">log1p</option>
+<option value="log2">log2</option>
+<option value="logit">logit</option>
+<option value="probability">probability</option>
+<option value="probit">probit</option>
+<option value="reciprocal">reciprocal</option>
+<option value="reverse">reverse</option>
+<option value="sqrt">sqrt</option></select>
+                  <script type="application/json" data-for="esquisse-controls-transX" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+                </div>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-scale-trans-y" style="display: none;">
+              <div id="esquisse-controls-ylim" class="shiny-numeric-range-input form-group shiny-input-container">
+                <label class="control-label" for="esquisse-controls-ylim">Limite do eixo Y (vazio para nenhum):</label>
+                <div class="input-numeric-range input-group">
+                  <input type="number" class="form-control" value="NA"/>
+                  <span class="input-group-addon input-group-text rounded-0"> to </span>
+                  <input type="number" class="form-control" value="NA"/>
+                </div>
+              </div>
+              <div class="form-group shiny-input-container" style="width:100%;">
+                <label class="control-label" id="esquisse-controls-transY-label" for="esquisse-controls-transY">Transformação do eixo Y:</label>
+                <div>
+                  <select id="esquisse-controls-transY"><option value="asn">asn</option>
+<option value="atanh">atanh</option>
+<option value="boxcox">boxcox</option>
+<option value="exp">exp</option>
+<option value="identity" selected>identity</option>
+<option value="log">log</option>
+<option value="log10">log10</option>
+<option value="log1p">log1p</option>
+<option value="log2">log2</option>
+<option value="logit">logit</option>
+<option value="probability">probability</option>
+<option value="probit">probit</option>
+<option value="reciprocal">reciprocal</option>
+<option value="reverse">reverse</option>
+<option value="sqrt">sqrt</option></select>
+                  <script type="application/json" data-for="esquisse-controls-transY" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+                </div>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-density" style="display: none;">
+              <div class="form-group shiny-input-container" style="width:100%;">
+                <label class="control-label" id="esquisse-controls-adjust-label" for="esquisse-controls-adjust">Ajuste de largura:</label>
+                <input class="js-range-slider" id="esquisse-controls-adjust" data-skin="shiny" data-min="0.2" data-max="6" data-from="1" data-step="0.1" data-grid="true" data-grid-num="9.66666666666667" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-position" style="display: none;">
+              <div id="esquisse-controls-position" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline">
+                <label class="control-label" for="esquisse-controls-position">Posição:</label>
+                <div class="shiny-options-group">
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-position" value="stack" checked="checked"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>stack</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-position" value="dodge"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>dodge</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pretty p-default p-round">
+                    <input type="radio" name="esquisse-controls-position" value="fill"/>
+                    <div class="state p-primary-o">
+                      <label>
+                        <span>fill</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label class="control-label" for="esquisse-controls-flip">Inverter coordenadas:</label>
+            <div class="form-group shiny-input-container shiny-input-container-inline" style="display: inline-block; margin-right: 10px;">
+              <div class="pretty p-toggle p-default">
+                <input id="esquisse-controls-flip" type="checkbox"/>
+                <div class="state p-on p-success">
+                  <label>
+                    <span>Sim</span>
+                  </label>
+                </div>
+                <div class="state p-off p-danger">
+                  <label>
+                    <span>Não</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>$(function() {swDrop('esquisse-controls-controls-parameters', 'sw-content-esquisse-controls-controls-parameters', 'sw-drop-esquisse-controls-controls-parameters', 'sw-none', 'sw-none', '1');});</script>
+      </div>
+      <div class="sw-dropdown btn-group-esquisse" id="sw-drop-esquisse-controls-controls-appearance">
+        <button class="btn btn-default btn-esquisse-controls " type="button" id="esquisse-controls-controls-appearance">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M199.4,55.3A101.5,101.5,0,0,0,128,26h-1A102,102,0,0,0,94,224.2a30,30,0,0,0,40-28.3V192a18.1,18.1,0,0,1,18-18h46.2a30,30,0,0,0,29.3-23.3,103.4,103.4,0,0,0,2.5-23.6A101.3,101.3,0,0,0,199.4,55.3ZM215.8,148a17.9,17.9,0,0,1-17.6,14H152a30.1,30.1,0,0,0-30,30v3.9a18,18,0,0,1-24,17A90,90,0,0,1,64.1,64.7a88.8,88.8,0,0,1,63-26.7h.9a90.3,90.3,0,0,1,90,89.2A90.8,90.8,0,0,1,215.8,148ZM138,76a10,10,0,1,1-10-10A10,10,0,0,1,138,76ZM91.6,107A10,10,0,1,1,74.3,97a10,10,0,1,1,17.3,10Zm0,42A10,10,0,1,1,78,145.3,10.1,10.1,0,0,1,91.6,149Zm90.1-52A10,10,0,1,1,168,93.3,10,10,0,0,1,181.7,97Z"></path>
+            <title>palette-light</title>
+          </svg>
+          Aparência
+          <span class="glyphicon glyphicon-triangle-top"></span>
+        </button>
+        <div class="sw-dropdown-content animated sw-dropup-content esquisse-controls-appearance" id="sw-content-esquisse-controls-controls-appearance">
+          <div class="sw-dropdown-in">
+            <div id="esquisse-controls-controls-fill-color" style="display: block;">
+              <div class="form-group shiny-input-container" style="width: 100%;">
+                <label class="control-label" for="esquisse-controls-fill_color" style="vertical-align: bottom;">Cor:</label>
+                <input id="esquisse-controls-fill_color" type="text" class="form-control pickr-color" readonly="readonly"/>
+                <script type="application/json" data-for="esquisse-controls-fill_color">{"update":"changestop","hideOnSave":false,"width":"100%","inline":true,"options":{"useAsButton":false,"theme":"monolith","default":"#112446","swatches":["#0C4C8A","#EF562D","forestgreen","steelblue","firebrick","darkorange","hotpink","#440154FF","#46337EFF"],"inline":true,"showAlways":true,"position":"bottom-middle","components":{"preview":false,"opacity":false,"hue":true,"interaction":{"cancel":false,"clear":false,"save":false,"hex":false,"rgba":false,"input":true}}}}</script>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-palette" style="display: none;">
+              <style>.bootstrap-select .dropdown-menu li a span.text { display: block !important; }</style>
+              <div id="esquisse-controls-colors-type" class="form-group shiny-input-radiogroup shiny-input-container" role="radiogroup" aria-labelledby="esquisse-controls-colors-type-label">
+                <label class="control-label shiny-label-null" for="esquisse-controls-colors-type" id="esquisse-controls-colors-type-label"></label>
+                <div class="shiny-options-group">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="esquisse-controls-colors-type" value="palette" checked="checked"/>
+                      <span><div>
+  <b>Use a palette:</b>
+  <div class="form-group shiny-input-container color-picker">
+    <label class="control-label shiny-label-null" for="esquisse-controls-colors-palette"></label>
+    <select data-container="body" id="esquisse-controls-colors-palette" class="selectpicker form-control">
+      <option value="ggplot2" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #F8766D 0%, #F8766D 11%, #D39200 11%, #D39200 22%, #93AA00 22%, #93AA00 33%, #00BA38 33%, #00BA38 44%, #00C19F 44%, #00C19F 56%, #00B9E3 56%, #00B9E3 67%, #619CFF 67%, #619CFF 78%, #DB72FB 78%, #DB72FB 89%, #FF61C3 89%, #FF61C3 100%);;color:white&#39;&gt;ggplot2&lt;/div&gt;">Default</option>
+      <optgroup label="Viridis">
+        <option value="viridis" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #440154FF 0%, #440154FF 10%, #482878FF 10%, #482878FF 20%, #3E4A89FF 20%, #3E4A89FF 30%, #31688EFF 30%, #31688EFF 40%, #26828EFF 40%, #26828EFF 50%, #1F9E89FF 50%, #1F9E89FF 60%, #35B779FF 60%, #35B779FF 70%, #6DCD59FF 70%, #6DCD59FF 80%, #B4DE2CFF 80%, #B4DE2CFF 90%, #FDE725FF 90%, #FDE725FF 100%);;color:white&#39;&gt;viridis&lt;/div&gt;">viridis</option>
+        <option value="magma" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #000004FF 0%, #000004FF 10%, #180F3EFF 10%, #180F3EFF 20%, #451077FF 20%, #451077FF 30%, #721F81FF 30%, #721F81FF 40%, #9F2F7FFF 40%, #9F2F7FFF 50%, #CD4071FF 50%, #CD4071FF 60%, #F1605DFF 60%, #F1605DFF 70%, #FD9567FF 70%, #FD9567FF 80%, #FEC98DFF 80%, #FEC98DFF 90%, #FCFDBFFF 90%, #FCFDBFFF 100%);;color:white&#39;&gt;magma&lt;/div&gt;">magma</option>
+        <option value="inferno" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #000004FF 0%, #000004FF 10%, #1B0C42FF 10%, #1B0C42FF 20%, #4B0C6BFF 20%, #4B0C6BFF 30%, #781C6DFF 30%, #781C6DFF 40%, #A52C60FF 40%, #A52C60FF 50%, #CF4446FF 50%, #CF4446FF 60%, #ED6925FF 60%, #ED6925FF 70%, #FB9A06FF 70%, #FB9A06FF 80%, #F7D03CFF 80%, #F7D03CFF 90%, #FCFFA4FF 90%, #FCFFA4FF 100%);;color:white&#39;&gt;inferno&lt;/div&gt;">inferno</option>
+        <option value="plasma" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #0D0887FF 0%, #0D0887FF 10%, #47039FFF 10%, #47039FFF 20%, #7301A8FF 20%, #7301A8FF 30%, #9C179EFF 30%, #9C179EFF 40%, #BD3786FF 40%, #BD3786FF 50%, #D8576BFF 50%, #D8576BFF 60%, #ED7953FF 60%, #ED7953FF 70%, #FA9E3BFF 70%, #FA9E3BFF 80%, #FDC926FF 80%, #FDC926FF 90%, #F0F921FF 90%, #F0F921FF 100%);;color:white&#39;&gt;plasma&lt;/div&gt;">plasma</option>
+        <option value="cividis" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #00204DFF 0%, #00204DFF 10%, #00336FFF 10%, #00336FFF 20%, #39486BFF 20%, #39486BFF 30%, #575C6DFF 30%, #575C6DFF 40%, #707173FF 40%, #707173FF 50%, #8A8779FF 50%, #8A8779FF 60%, #A69D75FF 60%, #A69D75FF 70%, #C4B56CFF 70%, #C4B56CFF 80%, #E4CF5BFF 80%, #E4CF5BFF 90%, #FFEA46FF 90%, #FFEA46FF 100%);;color:white&#39;&gt;cividis&lt;/div&gt;">cividis</option>
+      </optgroup>
+      <optgroup label="Diverging">
+        <option value="BrBG" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #543005 0%, #543005 9%, #8C510A 9%, #8C510A 18%, #BF812D 18%, #BF812D 27%, #DFC27D 27%, #DFC27D 36%, #F6E8C3 36%, #F6E8C3 45%, #F5F5F5 45%, #F5F5F5 55%, #C7EAE5 55%, #C7EAE5 64%, #80CDC1 64%, #80CDC1 73%, #35978F 73%, #35978F 82%, #01665E 82%, #01665E 91%, #003C30 91%, #003C30 100%);;color:white&#39;&gt;BrBG&lt;/div&gt;">BrBG</option>
+        <option value="PiYG" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #8E0152 0%, #8E0152 9%, #C51B7D 9%, #C51B7D 18%, #DE77AE 18%, #DE77AE 27%, #F1B6DA 27%, #F1B6DA 36%, #FDE0EF 36%, #FDE0EF 45%, #F7F7F7 45%, #F7F7F7 55%, #E6F5D0 55%, #E6F5D0 64%, #B8E186 64%, #B8E186 73%, #7FBC41 73%, #7FBC41 82%, #4D9221 82%, #4D9221 91%, #276419 91%, #276419 100%);;color:white&#39;&gt;PiYG&lt;/div&gt;">PiYG</option>
+        <option value="PRGn" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #40004B 0%, #40004B 9%, #762A83 9%, #762A83 18%, #9970AB 18%, #9970AB 27%, #C2A5CF 27%, #C2A5CF 36%, #E7D4E8 36%, #E7D4E8 45%, #F7F7F7 45%, #F7F7F7 55%, #D9F0D3 55%, #D9F0D3 64%, #A6DBA0 64%, #A6DBA0 73%, #5AAE61 73%, #5AAE61 82%, #1B7837 82%, #1B7837 91%, #00441B 91%, #00441B 100%);;color:white&#39;&gt;PRGn&lt;/div&gt;">PRGn</option>
+        <option value="PuOr" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #7F3B08 0%, #7F3B08 9%, #B35806 9%, #B35806 18%, #E08214 18%, #E08214 27%, #FDB863 27%, #FDB863 36%, #FEE0B6 36%, #FEE0B6 45%, #F7F7F7 45%, #F7F7F7 55%, #D8DAEB 55%, #D8DAEB 64%, #B2ABD2 64%, #B2ABD2 73%, #8073AC 73%, #8073AC 82%, #542788 82%, #542788 91%, #2D004B 91%, #2D004B 100%);;color:white&#39;&gt;PuOr&lt;/div&gt;">PuOr</option>
+        <option value="RdBu" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #67001F 0%, #67001F 9%, #B2182B 9%, #B2182B 18%, #D6604D 18%, #D6604D 27%, #F4A582 27%, #F4A582 36%, #FDDBC7 36%, #FDDBC7 45%, #F7F7F7 45%, #F7F7F7 55%, #D1E5F0 55%, #D1E5F0 64%, #92C5DE 64%, #92C5DE 73%, #4393C3 73%, #4393C3 82%, #2166AC 82%, #2166AC 91%, #053061 91%, #053061 100%);;color:white&#39;&gt;RdBu&lt;/div&gt;">RdBu</option>
+        <option value="RdGy" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #67001F 0%, #67001F 9%, #B2182B 9%, #B2182B 18%, #D6604D 18%, #D6604D 27%, #F4A582 27%, #F4A582 36%, #FDDBC7 36%, #FDDBC7 45%, #FFFFFF 45%, #FFFFFF 55%, #E0E0E0 55%, #E0E0E0 64%, #BABABA 64%, #BABABA 73%, #878787 73%, #878787 82%, #4D4D4D 82%, #4D4D4D 91%, #1A1A1A 91%, #1A1A1A 100%);;color:white&#39;&gt;RdGy&lt;/div&gt;">RdGy</option>
+        <option value="RdYlBu" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #A50026 0%, #A50026 9%, #D73027 9%, #D73027 18%, #F46D43 18%, #F46D43 27%, #FDAE61 27%, #FDAE61 36%, #FEE090 36%, #FEE090 45%, #FFFFBF 45%, #FFFFBF 55%, #E0F3F8 55%, #E0F3F8 64%, #ABD9E9 64%, #ABD9E9 73%, #74ADD1 73%, #74ADD1 82%, #4575B4 82%, #4575B4 91%, #313695 91%, #313695 100%);;color:white&#39;&gt;RdYlBu&lt;/div&gt;">RdYlBu</option>
+        <option value="RdYlGn" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #A50026 0%, #A50026 9%, #D73027 9%, #D73027 18%, #F46D43 18%, #F46D43 27%, #FDAE61 27%, #FDAE61 36%, #FEE08B 36%, #FEE08B 45%, #FFFFBF 45%, #FFFFBF 55%, #D9EF8B 55%, #D9EF8B 64%, #A6D96A 64%, #A6D96A 73%, #66BD63 73%, #66BD63 82%, #1A9850 82%, #1A9850 91%, #006837 91%, #006837 100%);;color:white&#39;&gt;RdYlGn&lt;/div&gt;">RdYlGn</option>
+        <option value="Spectral" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #9E0142 0%, #9E0142 9%, #D53E4F 9%, #D53E4F 18%, #F46D43 18%, #F46D43 27%, #FDAE61 27%, #FDAE61 36%, #FEE08B 36%, #FEE08B 45%, #FFFFBF 45%, #FFFFBF 55%, #E6F598 55%, #E6F598 64%, #ABDDA4 64%, #ABDDA4 73%, #66C2A5 73%, #66C2A5 82%, #3288BD 82%, #3288BD 91%, #5E4FA2 91%, #5E4FA2 100%);;color:white&#39;&gt;Spectral&lt;/div&gt;">Spectral</option>
+      </optgroup>
+      <optgroup label="Qualitative">
+        <option value="Accent" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #7FC97F 0%, #7FC97F 12%, #BEAED4 12%, #BEAED4 25%, #FDC086 25%, #FDC086 38%, #FFFF99 38%, #FFFF99 50%, #386CB0 50%, #386CB0 62%, #F0027F 62%, #F0027F 75%, #BF5B17 75%, #BF5B17 88%, #666666 88%, #666666 100%);;color:white&#39;&gt;Accent&lt;/div&gt;">Accent</option>
+        <option value="Dark2" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #1B9E77 0%, #1B9E77 12%, #D95F02 12%, #D95F02 25%, #7570B3 25%, #7570B3 38%, #E7298A 38%, #E7298A 50%, #66A61E 50%, #66A61E 62%, #E6AB02 62%, #E6AB02 75%, #A6761D 75%, #A6761D 88%, #666666 88%, #666666 100%);;color:white&#39;&gt;Dark2&lt;/div&gt;">Dark2</option>
+        <option value="Paired" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #A6CEE3 0%, #A6CEE3 8%, #1F78B4 8%, #1F78B4 17%, #B2DF8A 17%, #B2DF8A 25%, #33A02C 25%, #33A02C 33%, #FB9A99 33%, #FB9A99 42%, #E31A1C 42%, #E31A1C 50%, #FDBF6F 50%, #FDBF6F 58%, #FF7F00 58%, #FF7F00 67%, #CAB2D6 67%, #CAB2D6 75%, #6A3D9A 75%, #6A3D9A 83%, #FFFF99 83%, #FFFF99 92%, #B15928 92%, #B15928 100%);;color:white&#39;&gt;Paired&lt;/div&gt;">Paired</option>
+        <option value="Pastel1" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FBB4AE 0%, #FBB4AE 11%, #B3CDE3 11%, #B3CDE3 22%, #CCEBC5 22%, #CCEBC5 33%, #DECBE4 33%, #DECBE4 44%, #FED9A6 44%, #FED9A6 56%, #FFFFCC 56%, #FFFFCC 67%, #E5D8BD 67%, #E5D8BD 78%, #FDDAEC 78%, #FDDAEC 89%, #F2F2F2 89%, #F2F2F2 100%);;color:white&#39;&gt;Pastel1&lt;/div&gt;">Pastel1</option>
+        <option value="Pastel2" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #B3E2CD 0%, #B3E2CD 12%, #FDCDAC 12%, #FDCDAC 25%, #CBD5E8 25%, #CBD5E8 38%, #F4CAE4 38%, #F4CAE4 50%, #E6F5C9 50%, #E6F5C9 62%, #FFF2AE 62%, #FFF2AE 75%, #F1E2CC 75%, #F1E2CC 88%, #CCCCCC 88%, #CCCCCC 100%);;color:white&#39;&gt;Pastel2&lt;/div&gt;">Pastel2</option>
+        <option value="Set1" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #E41A1C 0%, #E41A1C 12%, #377EB8 12%, #377EB8 25%, #4DAF4A 25%, #4DAF4A 38%, #984EA3 38%, #984EA3 50%, #FF7F00 50%, #FF7F00 62%, #FFFF33 62%, #FFFF33 75%, #A65628 75%, #A65628 88%, #F781BF 88%, #F781BF 100%);;color:white&#39;&gt;Set1&lt;/div&gt;">Set1</option>
+        <option value="Set2" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #66C2A5 0%, #66C2A5 12%, #FC8D62 12%, #FC8D62 25%, #8DA0CB 25%, #8DA0CB 38%, #E78AC3 38%, #E78AC3 50%, #A6D854 50%, #A6D854 62%, #FFD92F 62%, #FFD92F 75%, #E5C494 75%, #E5C494 88%, #B3B3B3 88%, #B3B3B3 100%);;color:white&#39;&gt;Set2&lt;/div&gt;">Set2</option>
+        <option value="Set3" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #8DD3C7 0%, #8DD3C7 8%, #FFFFB3 8%, #FFFFB3 17%, #BEBADA 17%, #BEBADA 25%, #FB8072 25%, #FB8072 33%, #80B1D3 33%, #80B1D3 42%, #FDB462 42%, #FDB462 50%, #B3DE69 50%, #B3DE69 58%, #FCCDE5 58%, #FCCDE5 67%, #D9D9D9 67%, #D9D9D9 75%, #BC80BD 75%, #BC80BD 83%, #CCEBC5 83%, #CCEBC5 92%, #FFED6F 92%, #FFED6F 100%);;color:white&#39;&gt;Set3&lt;/div&gt;">Set3</option>
+      </optgroup>
+      <optgroup label="Sequential">
+        <option value="Blues" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #F7FBFF 0%, #F7FBFF 11%, #DEEBF7 11%, #DEEBF7 22%, #C6DBEF 22%, #C6DBEF 33%, #9ECAE1 33%, #9ECAE1 44%, #6BAED6 44%, #6BAED6 56%, #4292C6 56%, #4292C6 67%, #2171B5 67%, #2171B5 78%, #08519C 78%, #08519C 89%, #08306B 89%, #08306B 100%);;color:black&#39;&gt;Blues&lt;/div&gt;">Blues</option>
+        <option value="BuGn" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #F7FCFD 0%, #F7FCFD 11%, #E5F5F9 11%, #E5F5F9 22%, #CCECE6 22%, #CCECE6 33%, #99D8C9 33%, #99D8C9 44%, #66C2A4 44%, #66C2A4 56%, #41AE76 56%, #41AE76 67%, #238B45 67%, #238B45 78%, #006D2C 78%, #006D2C 89%, #00441B 89%, #00441B 100%);;color:black&#39;&gt;BuGn&lt;/div&gt;">BuGn</option>
+        <option value="BuPu" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #F7FCFD 0%, #F7FCFD 11%, #E0ECF4 11%, #E0ECF4 22%, #BFD3E6 22%, #BFD3E6 33%, #9EBCDA 33%, #9EBCDA 44%, #8C96C6 44%, #8C96C6 56%, #8C6BB1 56%, #8C6BB1 67%, #88419D 67%, #88419D 78%, #810F7C 78%, #810F7C 89%, #4D004B 89%, #4D004B 100%);;color:black&#39;&gt;BuPu&lt;/div&gt;">BuPu</option>
+        <option value="GnBu" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #F7FCF0 0%, #F7FCF0 11%, #E0F3DB 11%, #E0F3DB 22%, #CCEBC5 22%, #CCEBC5 33%, #A8DDB5 33%, #A8DDB5 44%, #7BCCC4 44%, #7BCCC4 56%, #4EB3D3 56%, #4EB3D3 67%, #2B8CBE 67%, #2B8CBE 78%, #0868AC 78%, #0868AC 89%, #084081 89%, #084081 100%);;color:black&#39;&gt;GnBu&lt;/div&gt;">GnBu</option>
+        <option value="Greens" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #F7FCF5 0%, #F7FCF5 11%, #E5F5E0 11%, #E5F5E0 22%, #C7E9C0 22%, #C7E9C0 33%, #A1D99B 33%, #A1D99B 44%, #74C476 44%, #74C476 56%, #41AB5D 56%, #41AB5D 67%, #238B45 67%, #238B45 78%, #006D2C 78%, #006D2C 89%, #00441B 89%, #00441B 100%);;color:black&#39;&gt;Greens&lt;/div&gt;">Greens</option>
+        <option value="Greys" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFFFFF 0%, #FFFFFF 11%, #F0F0F0 11%, #F0F0F0 22%, #D9D9D9 22%, #D9D9D9 33%, #BDBDBD 33%, #BDBDBD 44%, #969696 44%, #969696 56%, #737373 56%, #737373 67%, #525252 67%, #525252 78%, #252525 78%, #252525 89%, #000000 89%, #000000 100%);;color:black&#39;&gt;Greys&lt;/div&gt;">Greys</option>
+        <option value="Oranges" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFF5EB 0%, #FFF5EB 11%, #FEE6CE 11%, #FEE6CE 22%, #FDD0A2 22%, #FDD0A2 33%, #FDAE6B 33%, #FDAE6B 44%, #FD8D3C 44%, #FD8D3C 56%, #F16913 56%, #F16913 67%, #D94801 67%, #D94801 78%, #A63603 78%, #A63603 89%, #7F2704 89%, #7F2704 100%);;color:black&#39;&gt;Oranges&lt;/div&gt;">Oranges</option>
+        <option value="OrRd" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFF7EC 0%, #FFF7EC 11%, #FEE8C8 11%, #FEE8C8 22%, #FDD49E 22%, #FDD49E 33%, #FDBB84 33%, #FDBB84 44%, #FC8D59 44%, #FC8D59 56%, #EF6548 56%, #EF6548 67%, #D7301F 67%, #D7301F 78%, #B30000 78%, #B30000 89%, #7F0000 89%, #7F0000 100%);;color:black&#39;&gt;OrRd&lt;/div&gt;">OrRd</option>
+        <option value="PuBu" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFF7FB 0%, #FFF7FB 11%, #ECE7F2 11%, #ECE7F2 22%, #D0D1E6 22%, #D0D1E6 33%, #A6BDDB 33%, #A6BDDB 44%, #74A9CF 44%, #74A9CF 56%, #3690C0 56%, #3690C0 67%, #0570B0 67%, #0570B0 78%, #045A8D 78%, #045A8D 89%, #023858 89%, #023858 100%);;color:black&#39;&gt;PuBu&lt;/div&gt;">PuBu</option>
+        <option value="PuBuGn" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFF7FB 0%, #FFF7FB 11%, #ECE2F0 11%, #ECE2F0 22%, #D0D1E6 22%, #D0D1E6 33%, #A6BDDB 33%, #A6BDDB 44%, #67A9CF 44%, #67A9CF 56%, #3690C0 56%, #3690C0 67%, #02818A 67%, #02818A 78%, #016C59 78%, #016C59 89%, #014636 89%, #014636 100%);;color:black&#39;&gt;PuBuGn&lt;/div&gt;">PuBuGn</option>
+        <option value="PuRd" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #F7F4F9 0%, #F7F4F9 11%, #E7E1EF 11%, #E7E1EF 22%, #D4B9DA 22%, #D4B9DA 33%, #C994C7 33%, #C994C7 44%, #DF65B0 44%, #DF65B0 56%, #E7298A 56%, #E7298A 67%, #CE1256 67%, #CE1256 78%, #980043 78%, #980043 89%, #67001F 89%, #67001F 100%);;color:black&#39;&gt;PuRd&lt;/div&gt;">PuRd</option>
+        <option value="Purples" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FCFBFD 0%, #FCFBFD 11%, #EFEDF5 11%, #EFEDF5 22%, #DADAEB 22%, #DADAEB 33%, #BCBDDC 33%, #BCBDDC 44%, #9E9AC8 44%, #9E9AC8 56%, #807DBA 56%, #807DBA 67%, #6A51A3 67%, #6A51A3 78%, #54278F 78%, #54278F 89%, #3F007D 89%, #3F007D 100%);;color:black&#39;&gt;Purples&lt;/div&gt;">Purples</option>
+        <option value="RdPu" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFF7F3 0%, #FFF7F3 11%, #FDE0DD 11%, #FDE0DD 22%, #FCC5C0 22%, #FCC5C0 33%, #FA9FB5 33%, #FA9FB5 44%, #F768A1 44%, #F768A1 56%, #DD3497 56%, #DD3497 67%, #AE017E 67%, #AE017E 78%, #7A0177 78%, #7A0177 89%, #49006A 89%, #49006A 100%);;color:black&#39;&gt;RdPu&lt;/div&gt;">RdPu</option>
+        <option value="Reds" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFF5F0 0%, #FFF5F0 11%, #FEE0D2 11%, #FEE0D2 22%, #FCBBA1 22%, #FCBBA1 33%, #FC9272 33%, #FC9272 44%, #FB6A4A 44%, #FB6A4A 56%, #EF3B2C 56%, #EF3B2C 67%, #CB181D 67%, #CB181D 78%, #A50F15 78%, #A50F15 89%, #67000D 89%, #67000D 100%);;color:black&#39;&gt;Reds&lt;/div&gt;">Reds</option>
+        <option value="YlGn" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFFFE5 0%, #FFFFE5 11%, #F7FCB9 11%, #F7FCB9 22%, #D9F0A3 22%, #D9F0A3 33%, #ADDD8E 33%, #ADDD8E 44%, #78C679 44%, #78C679 56%, #41AB5D 56%, #41AB5D 67%, #238443 67%, #238443 78%, #006837 78%, #006837 89%, #004529 89%, #004529 100%);;color:black&#39;&gt;YlGn&lt;/div&gt;">YlGn</option>
+        <option value="YlGnBu" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFFFD9 0%, #FFFFD9 11%, #EDF8B1 11%, #EDF8B1 22%, #C7E9B4 22%, #C7E9B4 33%, #7FCDBB 33%, #7FCDBB 44%, #41B6C4 44%, #41B6C4 56%, #1D91C0 56%, #1D91C0 67%, #225EA8 67%, #225EA8 78%, #253494 78%, #253494 89%, #081D58 89%, #081D58 100%);;color:black&#39;&gt;YlGnBu&lt;/div&gt;">YlGnBu</option>
+        <option value="YlOrBr" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFFFE5 0%, #FFFFE5 11%, #FFF7BC 11%, #FFF7BC 22%, #FEE391 22%, #FEE391 33%, #FEC44F 33%, #FEC44F 44%, #FE9929 44%, #FE9929 56%, #EC7014 56%, #EC7014 67%, #CC4C02 67%, #CC4C02 78%, #993404 78%, #993404 89%, #662506 89%, #662506 100%);;color:black&#39;&gt;YlOrBr&lt;/div&gt;">YlOrBr</option>
+        <option value="YlOrRd" data-content="&lt;div style=&#39;width:100%;border-radius:4px; padding: 2px;background:linear-gradient(to right, #FFFFCC 0%, #FFFFCC 11%, #FFEDA0 11%, #FFEDA0 22%, #FED976 22%, #FED976 33%, #FEB24C 33%, #FEB24C 44%, #FD8D3C 44%, #FD8D3C 56%, #FC4E2A 56%, #FC4E2A 67%, #E31A1C 67%, #E31A1C 78%, #BD0026 78%, #BD0026 89%, #800026 89%, #800026 100%);;color:black&#39;&gt;YlOrRd&lt;/div&gt;">YlOrRd</option>
+      </optgroup>
+    </select>
+  </div>
+  <div class="form-group shiny-input-container">
+    <div class="checkbox">
+      <label>
+        <input id="esquisse-controls-colors-reverse" type="checkbox"/>
+        <span>Reverse colors?</span>
+      </label>
+    </div>
+  </div>
+</div></span>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="esquisse-controls-colors-type" value="manual"/>
+                      <span><div>
+  <b>Use specific colors:</b>
+  <div id="esquisse-controls-colors-manual" class="shiny-html-output"></div>
+</div></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-ribbon-color" style="display: none;">
+              <div class="form-group shiny-input-container">
+                <label class="control-label" for="esquisse-controls-color_ribbon" style="vertical-align: bottom;">Cor da fita:</label>
+                <input id="esquisse-controls-color_ribbon" type="text" class="form-control pickr-color" readonly="readonly"/>
+                <script type="application/json" data-for="esquisse-controls-color_ribbon">{"update":"save","hideOnSave":true,"inline":false,"options":{"useAsButton":false,"theme":"nano","default":"#A4A4A4","inline":false,"showAlways":false,"position":"bottom-middle","components":{"preview":true,"opacity":false,"hue":true,"interaction":{"cancel":false,"clear":false,"save":true,"hex":false,"rgba":false,"input":true}}}}</script>
+              </div>
+            </div>
+            <div id="esquisse-controls-controls-shape" style="display: none;">
+              <div class="form-group shiny-input-container" style="width: 100%;">
+                <label class="control-label" for="esquisse-controls-shape">Forma dos pontos:</label>
+                <select data-size="10" data-container="body" data-width="100%" id="esquisse-controls-shape" class="selectpicker form-control"><option value="circle" selected>circle</option>
+<option value="circle open">circle open</option>
+<option value="circle filled">circle filled</option>
+<option value="circle cross">circle cross</option>
+<option value="circle plus">circle plus</option>
+<option value="circle small">circle small</option>
+<option value="bullet">bullet</option>
+<option value="square">square</option>
+<option value="square open">square open</option>
+<option value="square filled">square filled</option>
+<option value="square cross">square cross</option>
+<option value="square plus">square plus</option>
+<option value="square triangle">square triangle</option>
+<option value="diamond">diamond</option>
+<option value="diamond open">diamond open</option>
+<option value="diamond filled">diamond filled</option>
+<option value="diamond plus">diamond plus</option>
+<option value="triangle">triangle</option>
+<option value="triangle open">triangle open</option>
+<option value="triangle filled">triangle filled</option>
+<option value="triangle square">triangle square</option>
+<option value="triangle down open">triangle down open</option>
+<option value="triangle down filled">triangle down filled</option>
+<option value="plus">plus</option>
+<option value="cross">cross</option>
+<option value="asterisk">asterisk</option></select>
+              </div>
+            </div>
+            <div class="form-group shiny-input-container" style="width: 100%;">
+              <label class="control-label" for="esquisse-controls-theme">Tema:</label>
+              <select data-size="10" data-container="body" data-width="100%" id="esquisse-controls-theme" class="selectpicker form-control"><optgroup label="ggplot2">
+<option value="theme_bw">bw</option>
+<option value="theme_classic">classic</option>
+<option value="theme_dark">dark</option>
+<option value="theme_gray">gray</option>
+<option value="theme_light">light</option>
+<option value="theme_linedraw">linedraw</option>
+<option value="theme_minimal" selected>minimal</option>
+<option value="theme_void">void</option>
+</optgroup></select>
+            </div>
+            <script>$('#esquisse-controls-theme').addClass('dropup');</script>
+            <div class="form-group shiny-input-container shiny-input-radiogroup shiny-input-container-inline">
+              <label id="esquisse-controls-legend_position-label" class="control-label" for="esquisse-controls-legend_position">Posição da legenda:</label>
+              <br/>
+              <div id="esquisse-controls-legend_position" class="radio-group-buttons" style="width: 100%;">
+                <div aria-labelledby="esquisse-controls-legend_position-label" class="btn-group btn-group-justified d-flex btn-group-sm btn-group-container-sw" data-toggle="buttons" role="group">
+                  <div class="btn-group btn-group-toggle btn-group-sm w-100" role="group">
+                    <button class="btn radiobtn btn-default">
+                      <input type="radio" autocomplete="off" name="esquisse-controls-legend_position" value="left"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                        <path d="M222,128a6,6,0,0,1-6,6H54.5l61.7,61.8a5.9,5.9,0,1,1-8.4,8.4l-72-72a5.8,5.8,0,0,1,0-8.4l72-72a5.9,5.9,0,0,1,8.4,8.4L54.5,122H216A6,6,0,0,1,222,128Z"></path>
+                        <title>arrow-left-light</title>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="btn-group btn-group-toggle btn-group-sm w-100" role="group">
+                    <button class="btn radiobtn btn-default">
+                      <input type="radio" autocomplete="off" name="esquisse-controls-legend_position" value="top"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                        <path d="M204.2,116.2a5.8,5.8,0,0,1-8.4,0L134,54.5V216a6,6,0,0,1-12,0V54.5L60.2,116.2a5.9,5.9,0,0,1-8.4-8.4l72-72a5.8,5.8,0,0,1,8.4,0l72,72A5.8,5.8,0,0,1,204.2,116.2Z"></path>
+                        <title>arrow-up-light</title>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="btn-group btn-group-toggle btn-group-sm w-100" role="group">
+                    <button class="btn radiobtn btn-default">
+                      <input type="radio" autocomplete="off" name="esquisse-controls-legend_position" value="bottom"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                        <path d="M204.2,148.2l-72,72a5.8,5.8,0,0,1-8.4,0l-72-72a5.9,5.9,0,0,1,8.4-8.4L122,201.5V40a6,6,0,0,1,12,0V201.5l61.8-61.7a5.9,5.9,0,0,1,8.4,8.4Z"></path>
+                        <title>arrow-down-light</title>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="btn-group btn-group-toggle btn-group-sm w-100" role="group">
+                    <button class="btn radiobtn btn-default active">
+                      <input type="radio" autocomplete="off" name="esquisse-controls-legend_position" value="right" checked="checked"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                        <path d="M220.2,132.2l-72,72a5.9,5.9,0,0,1-8.4-8.4L201.5,134H40a6,6,0,0,1,0-12H201.5L139.8,60.2a5.9,5.9,0,0,1,8.4-8.4l72,72A5.8,5.8,0,0,1,220.2,132.2Z"></path>
+                        <title>arrow-right-light</title>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="btn-group btn-group-toggle btn-group-sm w-100" role="group">
+                    <button class="btn radiobtn btn-default">
+                      <input type="radio" autocomplete="off" name="esquisse-controls-legend_position" value="none"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                        <path d="M204.2,195.8a5.9,5.9,0,1,1-8.4,8.4L128,136.5,60.2,204.2a5.9,5.9,0,0,1-8.4-8.4L119.5,128,51.8,60.2a5.9,5.9,0,0,1,8.4-8.4L128,119.5l67.8-67.7a5.9,5.9,0,0,1,8.4,8.4L136.5,128Z"></path>
+                        <title>x-light</title>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>$(function() {swDrop('esquisse-controls-controls-appearance', 'sw-content-esquisse-controls-controls-appearance', 'sw-drop-esquisse-controls-controls-appearance', 'sw-none', 'sw-none', '1');});</script>
+      </div>
+      <div class="sw-dropdown btn-group-esquisse" id="sw-drop-esquisse-controls-controls-filters">
+        <button class="btn btn-default btn-esquisse-controls " type="button" id="esquisse-controls-controls-filters">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M216,166H193.3a26,26,0,0,0-50.6,0H40a6,6,0,0,0,0,12H142.7a26,26,0,0,0,50.6,0H216a6,6,0,0,0,0-12Zm-48,20a14,14,0,1,1,14-14A14,14,0,0,1,168,186ZM40,90H78.7a26,26,0,0,0,50.6,0H216a6,6,0,0,0,0-12H129.3a26,26,0,0,0-50.6,0H40a6,6,0,0,0,0,12Zm64-20A14,14,0,1,1,90,84,14,14,0,0,1,104,70Z"></path>
+            <title>sliders-horizontal-light</title>
+          </svg>
+          Dados
+          <span class="glyphicon glyphicon-triangle-top"></span>
+        </button>
+        <div class="sw-dropdown-content animated sw-dropup-content esquisse-controls-filters" id="sw-content-esquisse-controls-controls-filters">
+          <div class="sw-dropdown-in">
+            <style>.selectize-big .selectize-input {height: 72px; overflow-y: scroll;}</style>
+            <span>
+              Número de linhas:
+              <span id="esquisse-controls-filter-data-nrow" class="shiny-html-output"></span>
+            </span>
+            <div id="esquisse-controls-filter-data-placeholder_filters" class="shiny-html-output"></div>
+          </div>
+        </div>
+        <script>$(function() {swDrop('esquisse-controls-controls-filters', 'sw-content-esquisse-controls-controls-filters', 'sw-drop-esquisse-controls-controls-filters', 'sw-none', 'sw-none', '1');});</script>
+      </div>
+      <div class="sw-dropdown btn-group-esquisse" id="sw-drop-esquisse-controls-controls-code">
+        <button class="btn btn-default btn-esquisse-controls " type="button" id="esquisse-controls-controls-code">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+            <path d="M67.8,92.6,25.4,128l42.4,35.4a5.9,5.9,0,0,1,.8,8.4A5.8,5.8,0,0,1,64,174a5.9,5.9,0,0,1-3.8-1.4l-48-40a5.9,5.9,0,0,1,0-9.2l48-40a6,6,0,0,1,7.6,9.2Zm176,30.8-48-40a6,6,0,0,0-7.6,9.2L230.6,128l-42.4,35.4a5.9,5.9,0,0,0-.8,8.4A5.8,5.8,0,0,0,192,174a5.9,5.9,0,0,0,3.8-1.4l48-40a5.9,5.9,0,0,0,0-9.2Zm-81.7-89a5.9,5.9,0,0,0-7.7,3.5l-64,176a5.9,5.9,0,0,0,3.6,7.7,4.5,4.5,0,0,0,2,.4,5.8,5.8,0,0,0,5.6-3.9l64-176A5.9,5.9,0,0,0,162.1,34.4Z"></path>
+            <title>code-light</title>
+          </svg>
+          Código
+          <span class="glyphicon glyphicon-triangle-top"></span>
+        </button>
+        <div class="sw-dropdown-content animated sw-dropup-content sw-dropright-content esquisse-controls-code" id="sw-content-esquisse-controls-controls-code">
+          <div class="sw-dropdown-in">
+            <button class="btn btn-default btn-xs pull-right btn-copy-code" data-clipboard-target="#esquisse-controls-codeggplot">Copiar</button>
+            <script>$(function() {new ClipboardJS('.btn-copy-code');});</script>
+            <br/>
+            <b>Código:</b>
+            <div id="esquisse-controls-code" class="shiny-html-output"></div>
+            <textarea id="esquisse-controls-holderCode" style="display: none;"></textarea>
+            <a id="esquisse-controls-insert_code" href="#" class="action-button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 256 256" class="phosphor-svg" height="1.33em" fill="currentColor" style="vertical-align:-0.25em;">
+                <path d="M128,26A102,102,0,1,0,230,128,102.2,102.2,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm46-90a6,6,0,0,1-6,6H102.5l23.7,23.7a6.1,6.1,0,0,1,0,8.5,5.9,5.9,0,0,1-4.3,1.7,5.8,5.8,0,0,1-4.2-1.7l-33.9-34a5.8,5.8,0,0,1,0-8.4l33.9-34a6,6,0,0,1,8.5,8.5L102.5,122H168A6,6,0,0,1,174,128Z"></path>
+                <title>arrow-circle-left-light</title>
+              </svg>
+              Inserir código no script
+            </a>
+            <br/>
+          </div>
+        </div>
+        <script>$(function() {swDrop('esquisse-controls-controls-code', 'sw-content-esquisse-controls-controls-code', 'sw-drop-esquisse-controls-controls-code', 'sw-none', 'sw-none', '1');});</script>
+      </div>
+    </div>
+    <div style="display: none;">
+      <div class="form-group shiny-input-container">
+        <div class="checkbox">
+          <label>
+            <input id="esquisse-controls-disable_filters" type="checkbox"/>
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

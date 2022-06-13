@@ -31,3 +31,5 @@ library(readxl)
 
 tabela <- read_excel("C:\\Users\\jeffe\\Desktop\\git\\R\\data\\vendas.xlsx")
 print(tabela)
+print(tabela[2])
+
